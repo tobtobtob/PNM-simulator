@@ -11,10 +11,13 @@ import java.util.List;
 
 public abstract class Node {
     
-    private String input;
-    private String output;
+    //these variables can be read and modified by algorithms
+    protected String input;
+    protected String output;
+    protected boolean stopped;
+    
     private List<Port> ports;
-    private boolean stopped;
+
     
     
     public Node(String input){
@@ -29,11 +32,20 @@ public abstract class Node {
     
     public abstract void receive();
     
-    public void sendMessages(List<String> messages){
-        
-        //this assumes that algorithm sends some message to each port.
-        for (int i = 0; i < ports.size(); i++) {
-            ports.get(i).sendMessage(messages.get(i));
+//    public void sendMessages(List<String> messages){
+//        
+//        //this assumes that algorithm sends some message to each port.
+//        for (int i = 0; i < ports.size(); i++) {
+//            ports.get(i).sendMessage(messages.get(i));
+//        }
+//    }
+    public void sendMessage(String message, int portNumber){
+        ports.get(portNumber).sendMessage(message);
+    }
+    
+    public void sendAll(String message){
+        for (Port port : ports) {
+            port.sendMessage(message);
         }
     }
     
@@ -53,5 +65,8 @@ public abstract class Node {
     }
     public boolean isStopped(){
         return stopped;
+    }
+    public int degree(){
+        return ports.size();
     }
 }
