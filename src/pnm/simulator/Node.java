@@ -35,6 +35,7 @@ public abstract class Node {
 
     
     public void sendMessage(String message, int portNumber){
+        
         ports.get(portNumber).sendMessage(message);
     }
     
@@ -67,9 +68,11 @@ public abstract class Node {
     @Override
     public String toString(){
         String ret = "node "+this.hashCode()+" input: "+input+" output: "+output;
-        
+        if(stopped){
+            ret += " STOPPED ";
+        }
         for (int i = 0; i < ports.size(); i++) {
-            ret += " port "+i+": "+ports.get(i)+",";
+            ret += " port "+i+":"+ports.get(i);
         }
         return ret;
     }

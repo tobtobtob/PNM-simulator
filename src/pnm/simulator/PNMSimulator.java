@@ -20,22 +20,27 @@ public class PNMSimulator {
         for (Node node : nodes) {
             node.init();
         }
-        
+        int round = 0;
         while(!allNodesStopped(nodes)){
-            
+            System.out.println("round "+round);
             for (Node node : nodes) {
                 node.send();
             }
+            
+            
             for (Node node : nodes) {
+                
                 node.receive();
             }
+            printNodes(nodes);
+            System.out.println("");
+            round++;
         }
     }
     
     public static void main(String[] args) {
         List<Node> nodes = createNetwork();
         run(nodes);
-        printNodes(nodes);
     }
     
     private static List<Node> createNetwork(){

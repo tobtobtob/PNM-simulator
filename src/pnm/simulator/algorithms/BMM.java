@@ -54,6 +54,7 @@ public class BMM extends Node {
                 }
                 else if(round >= degree()){
                     stopped = true;
+                    setOutput(-1);
                             
                 }
                 else{
@@ -65,16 +66,19 @@ public class BMM extends Node {
             if("black".equals(super.input)){
                 if(allNeighboursMatched()){
                     stopped = true;
+                    setOutput(-1);
                 }
                 for (int i = 0; i < degree(); i++) {
                     if(proposals[i]){
                         sendMessage("accept", i);
                         stopped = true;
+                        setOutput(i);
+                        break;
                     }
                 }
             }
         }
-        round++;
+        
     }
 
     @Override
@@ -99,13 +103,16 @@ public class BMM extends Node {
         else{
             if("white".equals(super.input)){
                 List<String> messages = receiveMessages();
+                
                 for (int i = 0; i < degree(); i++) {
                     if("accept".equals(messages.get(i))){
                         matched = true;
+                        setOutput(i);
                     }
                 }
             }
         }
+        round++;
         
     }
 
@@ -117,5 +124,30 @@ public class BMM extends Node {
         }
        return true;
     }
-
+    private void setOutput(int portNumber){
+        output = "";
+        if(portNumber == -1){
+            for (int i = 0; i < degree(); i++) {
+                output += "0";
+            }
+        }
+        else{
+            for (int i = 0; i < degree(); i++) {
+                if(i == portNumber){
+                    output += "1";
+                }
+                else{
+                    output += "0";
+                }
+            }
+        }
+    }
+//    @Override
+//    public String toString(){
+//        String ret = "";
+//        if(matched){
+//            ret += "MATCHED ";
+//        }
+//        return ret + super.toString();
+//    }
 }
