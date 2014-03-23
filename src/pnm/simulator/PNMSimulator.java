@@ -10,8 +10,9 @@ import pnm.simulator.algorithms.BMM;
 import pnm.simulator.algorithms.VC3;
 
 /**
- *
- * @author topi
+ *Simple simulator for port-numbering model. Currently graphs have to be given in 
+ * hard-coded way. Reading from files is not yet possible.
+ * 
  */
 public class PNMSimulator {
 
@@ -43,8 +44,7 @@ public class PNMSimulator {
     public static void main(String[] args) {
         //List<Node> nodes = createBMMNetwork();
         
-        List<Node> nodes = createVC3Network();
-       // printNodes(nodes);
+        List<Node> nodes = createVC3Network();       
         run(nodes);
     }
     
