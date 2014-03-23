@@ -15,14 +15,21 @@ public abstract class Node {
     protected String input;
     protected String output;
     protected boolean stopped;
+
+    public String getOutput() {
+        return output;
+    }
     
     //list of ports is not usable by algorithms
     private List<Port> ports;
+    //definitely not usable by algorithms! only for printing purposes
+    private int id;
 
     
     
-    public Node(String input){
+    public Node(String input, int id){
         this.input = input;
+        this.id = id;
         ports = new ArrayList<>();
     }
     
@@ -65,14 +72,17 @@ public abstract class Node {
     public int degree(){
         return ports.size();
     }
+    public int getId(){
+        return id;
+    }
     @Override
     public String toString(){
-        String ret = "node "+this.hashCode()+" input: "+input+" output: "+output;
+        String ret = "node "+this.id+" input: "+input+" output: "+output;
         if(stopped){
             ret += " STOPPED ";
         }
         for (int i = 0; i < ports.size(); i++) {
-            ret += " port "+i+":"+ports.get(i);
+            ret += " [port "+i+":"+ports.get(i) + "] ";
         }
         return ret;
     }

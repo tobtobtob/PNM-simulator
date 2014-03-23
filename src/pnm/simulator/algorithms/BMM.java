@@ -19,8 +19,8 @@ public class BMM extends Node {
     private boolean[] proposals;
     
 
-    public BMM(String input) {
-        super(input);
+    public BMM(String input, int id) {
+        super(input, id);
     }
 
     @Override
@@ -40,7 +40,9 @@ public class BMM extends Node {
         //first an empty message is sent to each port. If the node sends another
         //message, the empty message will be overwritten
         sendAll(" ");
-        
+//        if(input == "white" && matched){
+//            sendAll("matched");
+//        }
         if(stopped){
             return;
         }
@@ -52,13 +54,13 @@ public class BMM extends Node {
                     sendAll("matched");
                     stopped = true;
                 }
-                else if(round >= degree()){
+                else if(round/2 >= degree()){
                     stopped = true;
                     setOutput(-1);
                             
                 }
                 else{
-                    sendMessage("proposal", round);
+                    sendMessage("proposal", round/2);
                 }
             }
         }
@@ -103,7 +105,6 @@ public class BMM extends Node {
         else{
             if("white".equals(super.input)){
                 List<String> messages = receiveMessages();
-                
                 for (int i = 0; i < degree(); i++) {
                     if("accept".equals(messages.get(i))){
                         matched = true;

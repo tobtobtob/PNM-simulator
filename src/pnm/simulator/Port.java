@@ -38,7 +38,7 @@ public class Port {
     
     @Override
     public String toString(){
-        return connectedNode.hashCode() + " ";
+        return "to node "+connectedNode.getId();
     }
     
 }

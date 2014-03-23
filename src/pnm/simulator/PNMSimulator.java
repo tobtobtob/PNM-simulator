@@ -7,6 +7,7 @@ package pnm.simulator;
 import java.util.ArrayList;
 import java.util.List;
 import pnm.simulator.algorithms.BMM;
+import pnm.simulator.algorithms.VC3;
 
 /**
  *
@@ -21,16 +22,17 @@ public class PNMSimulator {
             node.init();
         }
         int round = 0;
+        
         while(!allNodesStopped(nodes)){
+            
             System.out.println("round "+round);
             for (Node node : nodes) {
                 node.send();
-            }
-            
-            
+               
+            }        
             for (Node node : nodes) {
-                
                 node.receive();
+                
             }
             printNodes(nodes);
             System.out.println("");
@@ -39,17 +41,20 @@ public class PNMSimulator {
     }
     
     public static void main(String[] args) {
-        List<Node> nodes = createNetwork();
+        //List<Node> nodes = createBMMNetwork();
+        
+        List<Node> nodes = createVC3Network();
+       // printNodes(nodes);
         run(nodes);
     }
     
-    private static List<Node> createNetwork(){
+    private static List<Node> createBMMNetwork(){
         List<Node> network = new ArrayList<>();
-        Node node1 = new BMM("white");
-        Node node2 = new BMM("black");
-        Node node3 = new BMM("white");
-        Node node4 = new BMM("black");
-        Node node5 = new BMM("black");
+        Node node1 = new BMM("white", 1);
+        Node node2 = new BMM("black", 2);
+        Node node3 = new BMM("white", 3);
+        Node node4 = new BMM("black", 4);
+        Node node5 = new BMM("black", 5);
         
         addConnection(node1, node2);
         addConnection(node1, node4);
@@ -62,6 +67,34 @@ public class PNMSimulator {
         network.add(node3);
         network.add(node4);
         network.add(node5);
+           
+        
+        return network;
+    }
+    private static List<Node> createVC3Network(){
+        List<Node> network = new ArrayList<>();
+        Node node1 = new VC3("", 1);
+        Node node2 = new VC3("", 2);
+        Node node3 = new VC3("", 3);
+        Node node4 = new VC3("", 4);
+        Node node5 = new VC3("", 5);
+        Node node6 = new VC3("", 6);
+        Node node7 = new VC3("", 7);
+        
+        addConnection(node1, node2);
+        addConnection(node1, node3);
+        addConnection(node1, node4);
+        addConnection(node1, node5);
+        addConnection(node1, node6);
+        addConnection(node6, node7);
+        
+        network.add(node1);
+        network.add(node2);
+        network.add(node3);
+        network.add(node4);
+        network.add(node5);
+        network.add(node6);
+        network.add(node7);
            
         
         return network;
