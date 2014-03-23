@@ -9,7 +9,13 @@ package pnm.simulator;
 public class Port {
     
     private Port connectedPort;
+    private Node connectedNode;
+
     private String receivedMessage;
+    
+    public Port(Node connectedNode) {
+        this.connectedNode = connectedNode;
+    }
     
     public void sendMessage(String message){
         connectedPort.setReceivedMessage(message);
@@ -25,6 +31,11 @@ public class Port {
 
     public void setReceivedMessage(String receivedMessage) {
         this.receivedMessage = receivedMessage;
+    }
+    
+    @Override
+    public String toString(){
+        return connectedNode.hashCode() + " ";
     }
     
 }

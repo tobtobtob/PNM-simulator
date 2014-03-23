@@ -14,7 +14,7 @@ public class BMM extends Node {
     private int round;
     private boolean matched;
     
-    //these arrays are only initialised and used by black nodes
+    //these arrays are only initialised if the node is black
     private boolean[] matchedNeighbours;
     private boolean[] proposals;
     
@@ -37,7 +37,8 @@ public class BMM extends Node {
     @Override
     public void send() {
         
-        //in case that no other message is sended, an empty message is sent to each port
+        //first an empty message is sent to each port. If the node sends another
+        //message, the empty message will be overwritten
         sendAll("");
         
         if(stopped){
@@ -116,6 +117,5 @@ public class BMM extends Node {
         }
        return true;
     }
-   
 
 }

@@ -16,6 +16,7 @@ public abstract class Node {
     protected String output;
     protected boolean stopped;
     
+    //list of ports is not usable by algorithms
     private List<Port> ports;
 
     
@@ -31,14 +32,8 @@ public abstract class Node {
     public abstract void send();
     
     public abstract void receive();
+
     
-//    public void sendMessages(List<String> messages){
-//        
-//        //this assumes that algorithm sends some message to each port.
-//        for (int i = 0; i < ports.size(); i++) {
-//            ports.get(i).sendMessage(messages.get(i));
-//        }
-//    }
     public void sendMessage(String message, int portNumber){
         ports.get(portNumber).sendMessage(message);
     }
@@ -59,7 +54,7 @@ public abstract class Node {
         return messages;
     }
     public Port addPort(Node connectedNode){
-        Port port = new Port();
+        Port port = new Port(connectedNode);
         ports.add(port);
         return port;
     }
@@ -68,5 +63,14 @@ public abstract class Node {
     }
     public int degree(){
         return ports.size();
+    }
+    @Override
+    public String toString(){
+        String ret = "node "+this.hashCode()+" input: "+input+" output: "+output;
+        
+        for (int i = 0; i < ports.size(); i++) {
+            ret += " port "+i+": "+ports.get(i)+",";
+        }
+        return ret;
     }
 }
