@@ -39,7 +39,7 @@ public class BMM extends Node {
         
         //first an empty message is sent to each port. If the node sends another
         //message, the empty message will be overwritten
-        sendAll("");
+        sendAll(" ");
         
         if(stopped){
             return;

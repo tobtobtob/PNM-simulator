@@ -15,7 +15,7 @@ public class Port {
     
     public Port(Node connectedNode) {
         this.connectedNode = connectedNode;
-        this.receivedMessage = "kakka";
+        
     }
     
     public void sendMessage(String message){
